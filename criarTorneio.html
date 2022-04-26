@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criar Torneio</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="estilo/style.css">
 </head>
 
 <body>
@@ -19,11 +19,11 @@
     </nav>
 
     <section>
-        <form action="" method="GET" id="formCriarTorneio">
+        <form action="php/criarTorneio.php" method="GET" id="formCriarTorneio">
             <label>Nome do Torneio:</label><br>
             <input type="text" name="nomeTorneio" required> <br>
             <label>Premiação:</label><br>
-            <input type="text" name="premiacaoTorneio" required> <br>
+            <input type="text" name="premiacao" required> <br>
             <label>Data de ínicio:</label><br>
             <input type="date" name="dataInicio" required> <br>
             <input type="submit" value="CRIAR TORNEIO" id="botaoCriar">
