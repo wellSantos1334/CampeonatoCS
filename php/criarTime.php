@@ -18,6 +18,4 @@ if(mysqli_query($conexao, $sql)){
     echo "<script>alert('Erro ao conectar ao banco de dados!')</script>";
 }
 
-
-
 ?>
