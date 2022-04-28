@@ -65,9 +65,9 @@ input:focus {
 }
 
 /* Estilização do botão "criar torneio" */
-#botaoCriar {
+.botaoCriar {
     background-color: #28303F;
-    width: 200px;
+    width: 80%;
     height: 40px;
     border: solid 2px;
     border-color: black;
@@ -75,19 +75,19 @@ input:focus {
 }
 
 /* Hover no botão "criar torneio" */
-#botaoCriar:hover {
+.botaoCriar:hover {
     background-color: yellow;
     color: black;
     cursor: pointer;
 }
 
 /* Estilização dos elementos do formulário "criarTorneio" */
-#formCriarTorneio {
+.formGeral {
     border: solid 2px;
     border-radius: 20px;
     border-color: #283652;
     text-align: center;
-    height: 300px;
+    height: 20%;
     padding: 50px;
     margin-top: 80px;
 }
