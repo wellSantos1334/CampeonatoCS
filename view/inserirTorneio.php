@@ -20,9 +20,10 @@
     </nav>
 
     <section>
+    <label class="msgSucesso" hidden>Validação se criou com sucesso</label>
         <form action="" method="POST" id="formEquipes"></form>
         <label></label>
     </section>
-
+    <script src="../js/msgSucesso.js"></script>
 </body>
 </html>

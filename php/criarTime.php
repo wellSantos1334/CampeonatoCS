@@ -13,7 +13,8 @@ $j6 = $_POST['j6'];
 $sql = "INSERT INTO times (nome, j1, j2, j3, j4, j5, j6) VALUES ('$nomeEquipe', '$j1', '$j2', '$j3', '$j4', '$j5', '$j6')";
 
 if(mysqli_query($conexao, $sql)){
-    require_once ('../criarTime.html');
+    require_once ('../view/criarTime.php');
+    header("location: ../view/criarTime.php?msgStatus=1");
 } else {
     echo "<script>alert('Erro ao conectar ao banco de dados!')</script>";
 }

@@ -13,7 +13,7 @@ function criarTorneio()
     if (mysqli_query($conexao, $sql)) {
         // echo "<script> alert('Torneio criado com sucesso!')</script>";
         $lastid = mysqli_insert_id($conexao);
-        header("location: ../inserirTorneio.html?torneioID=$lastid");
+        header("location: ../view/inserirTorneio.php?torneioID=$lastid&msgStatus=1");
         // echo "<script> alert($lastid)</script>";
 
     } else {

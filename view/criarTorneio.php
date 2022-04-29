@@ -20,7 +20,7 @@
     </nav>
 
     <section>
-        <form action="php/criarTorneio.php" method="POST" class="formGeral">
+        <form action="../php/criarTorneio.php" method="POST" class="formGeral">
             <label>Nome do Torneio:</label><br>
             <input type="text" name="nomeTorneio" required> <br>
             <label>Premiação:</label><br>
@@ -28,8 +28,10 @@
             <label>Data de ínicio:</label><br>
             <input type="date" name="dataInicio" required> <br>
             <input type="submit" value="CRIAR TORNEIO" class="botaoCriar">
+
         </form>
     </section>
+
 </body>
 
 </html>

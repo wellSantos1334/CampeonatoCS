@@ -91,3 +91,8 @@ input:focus {
     padding: 50px;
     margin-top: 80px;
 }
+
+/* Formatação mensagem de torneio criado com sucesso! */
+.msgSucesso {
+    font-size: 20px;
+}
