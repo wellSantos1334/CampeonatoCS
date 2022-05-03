@@ -12,7 +12,7 @@
 <body>
     <nav>
         <ul>
-        <li><a href="index.php">Home</a></li>
+            <li><a href="index.php">Home</a></li>
             <li><a href="criarTime.php">Criar time</a></li>
             <li><a href="criarTorneio.php">Criar torneio</a></li>
             <li><a href="buscarTorneio.php">Buscar torneio</a></li>
@@ -28,7 +28,6 @@
             <label>Data de ínicio:</label><br>
             <input type="date" name="dataInicio" required> <br>
             <input type="submit" value="CRIAR TORNEIO" class="botaoCriar">
-
         </form>
     </section>
 

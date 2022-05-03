@@ -1,13 +1,13 @@
 <?php
 function criarTorneio()
 {
-    
+
     include("conexao.php");
 
     $nomeTorneio = $_POST['nomeTorneio'];
     $premiacao = $_POST['premiacao'];
     $dataInicio = $_POST['dataInicio'];
- 
+
     $sql = "INSERT INTO torneio (nome, premiacao, data) VALUES ('$nomeTorneio', '$premiacao', '$dataInicio')";
 
     if (mysqli_query($conexao, $sql)) {

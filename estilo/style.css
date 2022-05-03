@@ -62,9 +62,11 @@ input {
 input:focus {
     background-color: #283652;
     color: white;
+
 }
 
 /* Estilização do botão "criar torneio" */
+
 .botaoCriar {
     background-color: #28303F;
     width: 80%;
