@@ -1,4 +1,4 @@
-<?php
+<!-- <?php
 include("conexao.php");
 ?>
 
@@ -87,4 +87,4 @@ $sql = "SELECT * FROM torneio WHERE nome = '$nomeTorneio'";
         }
 
     </style>
-</div>
+</div> -->

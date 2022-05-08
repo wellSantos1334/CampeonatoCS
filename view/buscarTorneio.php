@@ -89,6 +89,7 @@ include("../php/conexao.php");
                                 <td>
                                     <form action="../php/excluirTorneio.php" method="GET">
                                         <input type="hidden" name="idTorneio" value="<?php echo $dados['id'] ?>">
+                                        <input type="hidden" name="nomeTorneio" value="<?php echo $_GET['nomeTorneio'] ?>">
                                         <input type="submit" value="EXCLUIR">
                                     </form>
                                 </td>
