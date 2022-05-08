@@ -90,8 +90,9 @@ input:focus {
     border-color: #283652;
     text-align: center;
     height: 20%;
-    padding: 50px;
-    margin-top: 80px;
+    width: 100%;
+    padding: 10%;
+    margin-top: 20%;
 }
 
 /* Formatação mensagem de torneio criado com sucesso! */
@@ -99,3 +100,40 @@ input:focus {
     font-size: 20px;
 }
 
+.table-buscar-torneio {
+    border: solid 2px;
+    border-color: #283652;
+    width: 100%;
+    color: yellow;
+    margin-top: 20px;
+    border-radius: 20px;
+    display: inline-block;
+}
+
+table input {
+    background-color: #28303F;
+    width: 90%;
+    height: 30px;
+    border: solid 2px;
+    border-color: black;
+    color: white;
+    border-radius: 20px;
+}
+
+
+table input:hover {
+    background-color: yellow;
+    color: black;
+    cursor: pointer;
+}
+
+table td {
+    border: solid 1px;
+    border-color: #283652;
+    border-radius: 15px;
+}
+
+table th{
+    color: yellow;
+    padding: 1%;
+}

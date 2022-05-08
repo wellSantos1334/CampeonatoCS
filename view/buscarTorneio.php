@@ -27,17 +27,21 @@ include("../php/conexao.php");
 
     <section>
 
-        <form action="" method="GET" class="formGeral">
-            <label>Digite o nome do torneio:</label><br>
-            <input type="text" name="nomeTorneio" required> <br>
-            <input type="submit" value="BUSCAR" class="botaoCriar">
-
-            <table border="1" width="100%">
+        <div class="formGeral">
+            <form action="">
+                <label>Digite o nome do torneio:</label><br>
+                <input type="text" name="nomeTorneio"> <br>
+                <input type="submit" value="BUSCAR" class="botaoCriar">
+            </form>
+            <table class="table-buscar-torneio">
                 <tr>
                     <th>ID</th>
                     <th>Nome Torneio</th>
                     <th>Premiação</th>
                     <th>Data</th>
+                    <th>EDITAR</th>
+                    <th>GERENCIAR</th>
+                    <th>EXCLUIR</th>
                 </tr>
                 <?php
                 if (!isset($_GET['nomeTorneio'])) {
@@ -45,37 +49,58 @@ include("../php/conexao.php");
                 ?>
                     <br>
                     <tr>
-                        <td colspan="4">Digite algo para pesquisar...</td>
+                        <td colspan="7">Digite algo para pesquisar...</td>
                     </tr>
-                <?php
+                    <?php
                 } else {
-                    $pesquisa = $_GET['nomeTorneio'];
+                    // Impede que o usuário quebre o código digitando aleatoridade através do URL
+                    $pesquisa = mysqli_real_escape_string($conexao, $_GET['nomeTorneio']);
                     $sql = "SELECT * FROM torneio WHERE nome LIKE '%$pesquisa%'";
 
                     $query = mysqli_query($conexao, $sql) or die("Erro ao tentar conectar com o Banco de Dados! " . mysqli_error($conexao));
-                    
-                    if($query->num_rows == 0){
-                        ?>
+
+                    if ($query->num_rows == 0) {
+                    ?>
                         <tr>
-                            <td colspan="4">Nenhum resultado encontrado..</td>
+                            <td colspan="7">Nenhum resultado encontrado..</td>
                         </tr>
                         <?php
                     } else {
-                        while($dados = $query->fetch_assoc()){
-                            ?>
-                                <tr>
-                                    <td><?php echo $dados['id']?></td>
-                                    <td><?php echo $dados['nome']?></td>
-                                    <td><?php echo $dados['premiacao']?></td>
-                                    <td><?php echo $dados['data']?></td>
-                                </tr>
-                            <?php
+                        while ($dados = $query->fetch_assoc()) {
+                        ?>
+                            <tr>
+                                <td width="50px"><?php echo $dados['id'] ?></td>
+                                <td><?php echo $dados['nome'] ?></td>
+                                <td><?php echo $dados['premiacao'] ?></td>
+                                <td><?php echo $dados['data'] ?></td>
+                                <td>
+                                    <form action="../php/editarTorneio.php" method="GET">
+                                        <input type="hidden" name="idTorneio" value="<?php echo $dados['id'] ?>">
+                                        <input type="submit" value="EDITAR">
+                                    </form>
+                                </td>
+
+                                <td>
+                                    <form action="../php/gerenciarTorneio.php" method="GET">
+                                        <input type="hidden" name="idTorneio" value="<?php echo $dados['id'] ?>">
+                                        <input type="submit" value="GERENCIAR">
+                                    </form>
+                                </td>
+                                <td>
+                                    <form action="../php/excluirTorneio.php" method="GET">
+                                        <input type="hidden" name="idTorneio" value="<?php echo $dados['id'] ?>">
+                                        <input type="submit" value="EXCLUIR">
+                                    </form>
+                                </td>
+
+                            </tr>
+                <?php
                         }
                     }
                 }
                 ?>
             </table>
-        </form>
+        </div>
     </section>
 </body>
 
