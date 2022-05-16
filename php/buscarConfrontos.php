@@ -1,5 +1,6 @@
 <?php
 include("conexao.php");
+$idTorneio = $_GET['idTorneio'];
 ?>
 
 <!DOCTYPE html>
@@ -24,8 +25,38 @@ include("conexao.php");
     </nav>
 
     <section>
-        
+        <h3>Confrontos</h3>
+
+
+        <?php
+        $sql = "SELECT * FROM partida p JOIN serie s on p.codTorneio = '$idTorneio'";
+        $query = mysqli_query($conexao, $sql) or die("Erro ao conectar com o banco de dados! " . mysqli_errno($conexao));
+        while ($dados = $query->fetch_assoc()) {
+        ?>
+            <table class="table-confronto">
+                <tr>
+                    <th class="th-categoria" colspan="3">GrandFinal</th>
+                </tr>
+                <tr>
+
+                    <th class="th-mapa" colspan="3"><?php echo $dados['mapa'];?></th>
+                </tr>
+                <tr>
+                    <td class="td-times">Time1</td>
+                    <td class="td-reshalf1">5</td>
+                    <td class="td-reshalf2">13</td>
+                </tr>
+                <tr>
+                    <td class="td-times">Time2</td>
+                    <td class="td-reshalf1">10</td>
+                    <td class="td-reshalf2">16</td>
+                </tr>
+            </table>
+        <?php
+        }
+        ?>
     </section>
+
 </body>
 
 </html>
