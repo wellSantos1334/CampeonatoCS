@@ -39,7 +39,6 @@ include("conexao.php");
                 while ($dados2 = $query2->fetch_assoc()) {
                     echo $dados2['nome'] . ", ";
                 }
-                // echo $sqlNomeTimes;
             }
             ?>
         </div>
@@ -47,22 +46,54 @@ include("conexao.php");
         <div class="times-incritos" style="margin-top: 8%">
             <h3>Criar Confronto</h3>
             <form action="" method="POST">
-                <label>Categoria</label><br>
-                <input type="text" name="categoria"> <br><br>
-                <label>Mapa</label><br>
-                <input type="text" name="mapa"> <br><br>
+                <!-- <div id="criarConfronto">
+                    <label id="lbCategorias">Categorias</label><br>
+                    <label>Upper Bracket 1</label>
+                    <input type="radio" name="categoria" value="<?php echo "teste";?>" class="inputCat">
+                    <label>Upper Bracket 2</label>
+                    <input type="radio" name="categoria" value="<?php echo "teste";?>" class="inputCat"><br>
+                    <label>Upper Bracket 3</label>
+                    <input type="radio" name="categoria" value="<?php echo "teste";?>" class="inputCat"><br>
+                    <label>Lower Bracket 1</label>
+                    <input type="radio" name="categoria" value="<?php echo "teste";?>" class="inputCat">
+                    <label>Lower Bracket 2</label>
+                    <input type="radio" name="categoria" value="<?php echo "teste";?>" class="inputCat"><br>
+                    <label>Lower Bracket 3</label>
+                    <input type="radio" name="categoria" value="<?php echo "teste";?>" class="inputCat"><br>
+                    <label>Quarterfinals</label>
+                    <input type="radio" name="categoria" value="<?php echo "teste";?>" class="inputCat"><br>
+                    <label>Semifinals</label>
+                    <input type="radio" name="categoria" value="<?php echo "teste";?>" class="inputCat"><br>
+                    <label>Grand Final</label>
+                    <input type="radio" name="categoria" value="<?php echo "teste";?>" class="inputCat"><br>
+                </div> -->
+
+                <label>Categorias</label><br>
+                <select  name="categoria" id="selectCategoria">
+                    <option value="<?php echo "Upper Bracket 1" ?>">Upper Bracket 1</option>
+                    <option value="<?php echo "Upper Bracket 2" ?>">Upper Bracket 2</option>
+                    <option value="<?php echo "Upper Bracket 3" ?>">Upper Bracket 3</option>
+                    <option value="<?php echo "Lower Bracket 1" ?>">Lower Bracket 1</option>
+                    <option value="<?php echo "Lower Bracket 2" ?>">Lower Bracket 2</option>
+                    <option value="<?php echo "Lower Bracket 3" ?>">Lower Bracket 3</option>
+                    <option value="<?php echo "Quarterfinals" ?>">Quarterfinals</option>
+                    <option value="<?php echo "Semifinals" ?>">Semifinals</option>
+                    <option value="<?php echo "Grand Final" ?>">Grand Final</option>
+                </select> <br><br>
                 <input type="text" name="nomeTime1" style="width: 25%; text-align: center;" placeholder="NomeTime">
                 VS
-                <input type="text" name="nomeTime2" style="width: 25%; text-align: center;" placeholder="NomeTime"><br>
+                <input type="text" name="nomeTime2" style="width: 25%; text-align: center;" placeholder="NomeTime"><br><br>
+       <hr>
+                <label>Mapa </label><br>
+                <input type="text" name="mapa"> <br>
                 <input type="text" name="half1Time1" style="width: 8%;">
                 VS
                 <input type="text" name="half1Time2" style="width: 8%; "><br>
                 <input type="text" name="half2Time1" style="width: 8%;">
                 VS
                 <input type="text" name="half2Time2" style="width: 8%;">
+                <hr>
                 <input type="submit" value="CRIAR CONFRONTO" class="botaoCriar">
-
-
 
                 <?php
                 if (isset($_POST['nomeTime1']) && ($_POST['nomeTime2'])) {
@@ -84,13 +115,9 @@ include("conexao.php");
                         $queryidTime2 = mysqli_query($conexao, $sqlidTime2);
                         while ($dadosidTime2 = $queryidTime2->fetch_assoc()) {
                             $idTime2 = $dadosidTime2['id'];
-
-                            $sqlPartida = "INSERT INTO partida (codTime1, codTime2, codTorneio, mapa, half1Time1, half1Time2, half2Time1, half2Time2) VALUES ('$idTime1', '$idTime2', '$idTorneio', '$mapa', '$half1Time1', '$half1Time2', '$half2Time1', '$half2Time2')";
+                            
+                            $sqlPartida = "INSERT INTO partida (codTime1, codTime2, codTorneio, mapa, categoria, half1Time1, half1Time2, half2Time1, half2Time2) VALUES ('$idTime1', '$idTime2', '$idTorneio', '$mapa', '$categoria', '$half1Time1', '$half1Time2', '$half2Time1', '$half2Time2')";
                             $queryPartida = mysqli_query($conexao, $sqlPartida);
-                            $lastid = mysqli_insert_id($conexao);
-
-                            $sqlSerie = "INSERT INTO serie (codPartida, categoria) VALUES ('$lastid', '$categoria')";
-                            $querySerie = mysqli_query($conexao, $sqlSerie);
                         }
                     }
                 }

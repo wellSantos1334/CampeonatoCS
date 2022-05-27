@@ -215,3 +215,11 @@ table th{
     font-size: 12px;
     text-align: center;
 }
+
+#selectCategoria {
+    width: 20%;
+    height: 24px;
+    text-align: center;
+
+}
+
