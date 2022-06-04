@@ -223,3 +223,14 @@ table th{
 
 }
 
+#selectTime1 {
+    width: 20%;
+    height: 24px;
+    text-align: center;
+}
+
+#selectTime2 {
+    width: 20%;
+    height: 24px;
+    text-align: center;
+}

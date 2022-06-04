@@ -37,7 +37,8 @@ include("conexao.php");
                 $sqlNomeTimes = "SELECT * FROM times WHERE id = '$idTime'";
                 $query2 = mysqli_query($conexao, $sqlNomeTimes) or die("Erro ao conectar com o BD" . mysqli_error($conexao));
                 while ($dados2 = $query2->fetch_assoc()) {
-                    echo $dados2['nome'] . ", ";
+
+                    echo $dados2['nome'] . ", ";  
                 }
             }
             ?>
@@ -46,28 +47,6 @@ include("conexao.php");
         <div class="times-incritos" style="margin-top: 8%">
             <h3>Criar Confronto</h3>
             <form action="" method="POST">
-                <!-- <div id="criarConfronto">
-                    <label id="lbCategorias">Categorias</label><br>
-                    <label>Upper Bracket 1</label>
-                    <input type="radio" name="categoria" value="<?php echo "teste";?>" class="inputCat">
-                    <label>Upper Bracket 2</label>
-                    <input type="radio" name="categoria" value="<?php echo "teste";?>" class="inputCat"><br>
-                    <label>Upper Bracket 3</label>
-                    <input type="radio" name="categoria" value="<?php echo "teste";?>" class="inputCat"><br>
-                    <label>Lower Bracket 1</label>
-                    <input type="radio" name="categoria" value="<?php echo "teste";?>" class="inputCat">
-                    <label>Lower Bracket 2</label>
-                    <input type="radio" name="categoria" value="<?php echo "teste";?>" class="inputCat"><br>
-                    <label>Lower Bracket 3</label>
-                    <input type="radio" name="categoria" value="<?php echo "teste";?>" class="inputCat"><br>
-                    <label>Quarterfinals</label>
-                    <input type="radio" name="categoria" value="<?php echo "teste";?>" class="inputCat"><br>
-                    <label>Semifinals</label>
-                    <input type="radio" name="categoria" value="<?php echo "teste";?>" class="inputCat"><br>
-                    <label>Grand Final</label>
-                    <input type="radio" name="categoria" value="<?php echo "teste";?>" class="inputCat"><br>
-                </div> -->
-
                 <label>Categorias</label><br>
                 <select  name="categoria" id="selectCategoria">
                     <option value="<?php echo "Upper Bracket 1" ?>">Upper Bracket 1</option>
@@ -80,9 +59,48 @@ include("conexao.php");
                     <option value="<?php echo "Semifinals" ?>">Semifinals</option>
                     <option value="<?php echo "Grand Final" ?>">Grand Final</option>
                 </select> <br><br>
-                <input type="text" name="nomeTime1" style="width: 25%; text-align: center;" placeholder="NomeTime">
+                <!-- <input type="text" name="nomeTime1" style="width: 25%; text-align: center;" placeholder="NomeTime""> -->
+
+                <br><br>
+
+                <?php 
+                $idTorneio = $_GET['idTorneio'];
+                $sqlTimesInscritos = "SELECT codTime FROM torneio_times WHERE codTorneio =  '$idTorneio'";
+                $query = mysqli_query($conexao, $sqlTimesInscritos) or die("Erro ao conectar com o BD" . mysqli_error($conexao));
+                echo "<input type='radio' name='pickTime1' style='width: 20px; height: 20px;'>";
+                    echo "<select  name='nomeTime1' id='selectTime1'>";
+                        while ($dados = $query->fetch_assoc()) {
+                            $idTime = $dados['codTime'];
+                            $sqlNomeTimes = "SELECT * FROM times WHERE id = '$idTime'";
+                            $query2 = mysqli_query($conexao, $sqlNomeTimes) or die("Erro ao conectar com o BD" . mysqli_error($conexao));
+                            while($dados2 = $query2->fetch_array()) {
+                                echo "<option value='".$dados2['nome']."'>".$dados2['nome']."</option>";
+                            }  
+                        }
+                    echo "</select>";
+                ?>
                 VS
-                <input type="text" name="nomeTime2" style="width: 25%; text-align: center;" placeholder="NomeTime"><br><br>
+                <?php
+                $idTorneio = $_GET['idTorneio'];
+                $sqlTimesInscritos = "SELECT codTime FROM torneio_times WHERE codTorneio =  '$idTorneio'";
+                $query = mysqli_query($conexao, $sqlTimesInscritos) or die("Erro ao conectar com o BD" . mysqli_error($conexao));
+                    echo "<select  name='nomeTime2' id='selectTime2'>";
+                        while ($dados = $query->fetch_assoc()) {
+                        $idTime = $dados['codTime'];
+                        $sqlNomeTimes = "SELECT * FROM times WHERE id = '$idTime'";
+                        $query2 = mysqli_query($conexao, $sqlNomeTimes) or die("Erro ao conectar com o BD" . mysqli_error($conexao));
+                            while($dados2 = $query2->fetch_array()) {
+                            echo "<option value='".$dados2['nome']."'>".$dados2['nome']."</option>";
+                            }  
+                        }
+                    echo "</select>";
+                    echo "<input type='radio' name='pickTime2' style='width: 20px; height: 20px;'>";
+                    
+                ?>
+
+                <br><br>
+               
+                <!-- <input type="text" name="nomeTime2" style="width: 25%; text-align: center;" placeholder="NomeTime"><br><br> -->
        <hr>
                 <label>Mapa </label><br>
                 <input type="text" name="mapa"> <br>
@@ -108,6 +126,8 @@ include("conexao.php");
 
                     $sqlidTime1 = "SELECT id FROM times WHERE nome = '$nomeTime1'";
                     $queryidTime1 = mysqli_query($conexao, $sqlidTime1);
+
+                    if(isset($_POST['pickTime1'])){
                     while ($dadosidTime1 = $queryidTime1->fetch_assoc()) {
                         $idTime1 = $dadosidTime1['id'];
 
@@ -116,21 +136,47 @@ include("conexao.php");
                         while ($dadosidTime2 = $queryidTime2->fetch_assoc()) {
                             $idTime2 = $dadosidTime2['id'];
                             
-                            $sqlPartida = "INSERT INTO partida (codTime1, codTime2, codTorneio, mapa, categoria, half1Time1, half1Time2, half2Time1, half2Time2) VALUES ('$idTime1', '$idTime2', '$idTorneio', '$mapa', '$categoria', '$half1Time1', '$half1Time2', '$half2Time1', '$half2Time2')";
+                            $sqlPartida = "INSERT INTO partida (codTime1, codTime2, codTorneio, mapa, pick, categoria, half1Time1, half1Time2, half2Time1, half2Time2) VALUES ('$idTime1', '$idTime2', '$idTorneio', '$mapa', '$nomeTime1', '$categoria', '$half1Time1', '$half1Time2', '$half2Time1', '$half2Time2')";
+                            $queryPartida = mysqli_query($conexao, $sqlPartida);
+                        }
+                    }
+                } 
+
+                if(isset($_POST['pickTime2'])){
+                    while ($dadosidTime1 = $queryidTime1->fetch_assoc()) {
+                        $idTime1 = $dadosidTime1['id'];
+
+                        $sqlidTime2 = "SELECT id FROM times WHERE nome = '$nomeTime2'";
+                        $queryidTime2 = mysqli_query($conexao, $sqlidTime2);
+                        while ($dadosidTime2 = $queryidTime2->fetch_assoc()) {
+                            $idTime2 = $dadosidTime2['id'];
+                            
+                            $sqlPartida = "INSERT INTO partida (codTime1, codTime2, codTorneio, mapa, pick, categoria, half1Time1, half1Time2, half2Time1, half2Time2) VALUES ('$idTime1', '$idTime2', '$idTorneio', '$mapa', '$nomeTime2', '$categoria', '$half1Time1', '$half1Time2', '$half2Time1', '$half2Time2')";
+                            $queryPartida = mysqli_query($conexao, $sqlPartida);
+                        }
+                    }
+                } else {
+                    while ($dadosidTime1 = $queryidTime1->fetch_assoc()) {
+                        $idTime1 = $dadosidTime1['id'];
+                        $decider = "DECIDER";
+
+                        $sqlidTime2 = "SELECT id FROM times WHERE nome = '$nomeTime2'";
+                        $queryidTime2 = mysqli_query($conexao, $sqlidTime2);
+                        while ($dadosidTime2 = $queryidTime2->fetch_assoc()) {
+                            $idTime2 = $dadosidTime2['id'];
+                            
+                            $sqlPartida = "INSERT INTO partida (codTime1, codTime2, codTorneio, mapa, pick, categoria, half1Time1, half1Time2, half2Time1, half2Time2) VALUES ('$idTime1', '$idTime2', '$idTorneio', '$mapa', '$decider', '$categoria', '$half1Time1', '$half1Time2', '$half2Time1', '$half2Time2')";
                             $queryPartida = mysqli_query($conexao, $sqlPartida);
                         }
                     }
                 }
+            }
                 ?>
             </form>
             <form action="buscarConfrontos.php" method="GET">
                 <input type="hidden" name="idTorneio" value="<?php echo $idTorneio;?>">
                 <input type="submit" value="BUSCAR CONFRONTO" class="botaoCriar">
             </form>
-        </div>
-
-        <div class="ver-confrontos" style="margin-top: 8%">
-            <h3>Ver Confrontos</h3>
         </div>
     </section>
 </body>
